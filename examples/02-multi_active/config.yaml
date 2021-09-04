@@ -1,0 +1,4 @@
+metrics:
+  - module_name: Accuracy
+    threshold: 0.5
+  - module_name: AreaUnderCurve
