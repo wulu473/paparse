@@ -1,8 +1,8 @@
 
 EXAMPLES := $(shell find examples -name '*.py')
 
-.PHONY: test
-test:
+.PHONY: tests
+tests:
 	pytest .
 
 .PHONY: lint
