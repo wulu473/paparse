@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from paparse import SimpleConfig, Parameters
+from paparse import SimpleConfig
 
 
 @dataclass
@@ -10,7 +10,7 @@ class _ConfigDummy(SimpleConfig):
 
 class TestSimpleConfig:
     def test_from_parameters(self):
-        params = Parameters({"x": 1})
+        params = dict({"x": 1})
 
         cfg = _ConfigDummy.from_parameters(params)
 

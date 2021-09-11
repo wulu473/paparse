@@ -1,15 +1,14 @@
 import inspect
 
-from dataclasses import fields
+from dataclasses import fields, asdict
 from typing import TypeVar, Type
 
 from multimethod import overload
+from ruamel.yaml.comments import CommentedMap
 
 from .exceptions import ConfigError
-from .parameters import Parameters
 from .converters_primitive import convert
 from .predicates import issubclassof, isa, islistofsubclass
-
 
 class AbstractConfig:
     def instance(self):
@@ -27,6 +26,21 @@ class AbstractConfig:
             if field.name in data:
                 field_dict[field.name] = convert(data[field.name], field.type)
         return cls(**field_dict)
+
+def as_commented_dict(data):
+    if isinstance(data, AbstractConfig):
+        map = CommentedMap()
+        for field in fields(data):
+            field_value = as_commented_dict(getattr(data, field))
+            comment = field.metadata.get("help", "")
+            map.insert(pos=len(map), key=field.name, value=field_value, comment=comment)
+        return map
+    elif isinstance(data, (list, tuple)):
+        return [ as_commented_dict(l_i) for l_i in data ]
+    elif isinstance(data, (str, float, int)):
+        return data
+    else:
+        raise TypeError()
 
 
 class ConfigFactory:
@@ -104,8 +118,8 @@ T = TypeVar('T')
 
 class SimpleConfig(AbstractConfig):
     @classmethod
-    def from_parameters(cls: Type[T], parameters: Parameters) -> T:
-        return convert(parameters.data, cls)
+    def from_parameters(cls: Type[T], parameters: dict) -> T:
+        return convert(parameters, cls)
 
 
 @overload
