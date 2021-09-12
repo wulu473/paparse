@@ -32,7 +32,8 @@ def as_commented_dict(data):
         map = CommentedMap()
         for field in fields(data):
             field_value = as_commented_dict(getattr(data, field))
-            comment = field.metadata.get("help", "")
+            help_txt = field.metadata.get("help", "")
+            comment = f"type: {field.type}; help: {help_txt}"
             map.insert(pos=len(map), key=field.name, value=field_value, comment=comment)
         return map
     elif isinstance(data, (list, tuple)):
