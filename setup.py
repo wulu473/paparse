@@ -19,7 +19,8 @@ setuptools.setup(
     install_requires=[
         'multimethod',
         'seval',
-        'pyyaml'
+        'ruamel.yaml',
+        'Jinja2'
     ],
     scripts=[],
     test_suite="tests",

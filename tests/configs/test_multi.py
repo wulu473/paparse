@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from paparse import MultiActiveModuleConfig, SimpleConfig, Parameters
+from paparse import MultiActiveModuleConfig, SimpleConfig
 
 
 class _Base(MultiActiveModuleConfig):
@@ -25,7 +25,7 @@ class _RootConfig(SimpleConfig):
 class TestMultiActiveConfig:
     def test_from_parameters(self):
 
-        params = Parameters({"modules": [
+        params = dict({"modules": [
             {
                 "module_name": "_A",
                 "x": 3
@@ -39,7 +39,7 @@ class TestMultiActiveConfig:
                 "y": 2
             }]
         })
-        cfg = _RootConfig.from_parameters(params)
+        cfg = _RootConfig.from_dict(params)
 
         assert isinstance(cfg.modules[0], _A) is True
         assert isinstance(cfg.modules[1], _A) is True
