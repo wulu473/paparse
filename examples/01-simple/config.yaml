@@ -1,5 +1,0 @@
-trainer:
-  batch_size: 5
-
-data:
-  train_path: "some_path"
