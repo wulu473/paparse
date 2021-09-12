@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from paparse import MultiActiveModuleConfig, SimpleConfig, Parameters
+from paparse import MultiActiveModuleConfig, SimpleConfig
 
 
 class _Base(MultiActiveModuleConfig):
@@ -25,7 +25,7 @@ class _RootConfig(SimpleConfig):
 class TestMultiActiveConfig:
     def test_from_parameters(self):
 
-        params = Parameters({"modules": [
+        params = dict({"modules": [
             {
                 "module_name": "_A",
                 "x": 3
