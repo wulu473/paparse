@@ -2,7 +2,7 @@ import os
 
 from dataclasses import dataclass
 
-from paparse import SimpleConfig, Parameters
+from paparse import SimpleConfig
 
 
 @dataclass
@@ -22,9 +22,8 @@ class Config(SimpleConfig):
 
 
 if __name__ == "__main__":
-    params = Parameters.from_yaml(
+    cfg = Config.from_yaml_file(
         os.path.join(os.path.dirname(__file__), "config.yaml"))
-    cfg = Config.from_parameters(params)
 
     assert cfg.trainer.batch_size == 5
     assert cfg.data.train_path == "some_path"

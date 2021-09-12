@@ -2,7 +2,7 @@ import os
 
 from dataclasses import dataclass
 
-from paparse import SimpleConfig, Parameters, MultiActiveModuleConfig
+from paparse import SimpleConfig, MultiActiveModuleConfig
 
 
 class MetricConfig(MultiActiveModuleConfig):
@@ -25,9 +25,8 @@ class Config(SimpleConfig):
 
 
 if __name__ == "__main__":
-    params = Parameters.from_yaml(
+    cfg = Config.from_yaml_file(
         os.path.join(os.path.dirname(__file__), "config.yaml"))
-    cfg = Config.from_parameters(params)
 
     assert type(cfg.metrics[0]) == AccuracyConfig
     assert cfg.metrics[0].threshold == 0.5
