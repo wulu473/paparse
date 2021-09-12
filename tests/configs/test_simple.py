@@ -12,6 +12,6 @@ class TestSimpleConfig:
     def test_from_parameters(self):
         params = dict({"x": 1})
 
-        cfg = _ConfigDummy.from_parameters(params)
+        cfg = _ConfigDummy.from_dict(params)
 
         assert cfg.x == 1

@@ -34,7 +34,7 @@ class TestSingleActiveConfig:
                 }
             }
         )
-        cfg = _RootConfig.from_parameters(params_a)
+        cfg = _RootConfig.from_dict(params_a)
 
         assert isinstance(cfg.module, _A) is True
         assert cfg.module.x == 3
@@ -49,7 +49,7 @@ class TestSingleActiveConfig:
             }
         )
 
-        cfg = _RootConfig.from_parameters(params_b)
+        cfg = _RootConfig.from_dict(params_b)
 
         assert isinstance(cfg.module, _B) is True
         assert cfg.module.y == 3

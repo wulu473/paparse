@@ -39,7 +39,7 @@ class TestMultiActiveConfig:
                 "y": 2
             }]
         })
-        cfg = _RootConfig.from_parameters(params)
+        cfg = _RootConfig.from_dict(params)
 
         assert isinstance(cfg.modules[0], _A) is True
         assert isinstance(cfg.modules[1], _A) is True
