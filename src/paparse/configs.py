@@ -9,6 +9,7 @@ from ruamel.yaml.comments import CommentedMap
 from .exceptions import ConfigError
 from .converters_primitive import convert
 from .predicates import issubclassof, isa, islistofsubclass
+from .parameters import read_templated_yaml_file
 
 class AbstractConfig:
     def instance(self):
@@ -103,8 +104,8 @@ T = TypeVar('T')
 
 class SimpleConfig(AbstractConfig):
     @classmethod
-    def from_parameters(cls: Type[T], parameters: dict) -> T:
-        return convert(parameters, cls)
+    def from_yaml_file(cls: Type[T], path: str, context: dict = None) -> T:
+        return convert(read_templated_yaml_file(path, context=context), cls)
 
 
 @overload
