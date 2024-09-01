@@ -1,6 +1,6 @@
 import inspect
 
-from dataclasses import fields, asdict
+from dataclasses import fields, asdict, is_dataclass
 from typing import TypeVar, Type
 
 from multimethod import overload
@@ -27,7 +27,21 @@ class AbstractConfig:
             if field.name in data:
                 field_dict[field.name] = convert(data[field.name], field.type)
         return cls(**field_dict)
+    
+    def to_dict(self):
+        """
+        Convert the configuration instance to a dictionary.
 
+        This method uses the `asdict` function from the `dataclasses` module
+        to convert the instance of the configuration class into a dictionary
+        where the keys are the field names and the values are the field values.
+
+        Returns:
+            dict: A dictionary representation of the configuration instance.
+        """
+        if not is_dataclass(self):
+            raise TypeError(f"{self.__class__.__name__} is not a dataclass instance.")
+        return asdict(self)
 
 class ConfigFactory:
     def __init__(self, module):
