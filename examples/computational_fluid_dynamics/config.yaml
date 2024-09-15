@@ -1,0 +1,17 @@
+
+problem:
+  start_time: 0.0
+  final_time: 1.0
+
+flux_method:
+  - module_name: SLIC
+    limiter: superbee
+  - module_name: MUSCLHancock
+    limiter: superbee
+    riemann_solver: exact
+
+output:
+  - module_name: Gnuplot
+    output_path: "some_path"
+  - module_name: CSV
+    output_path: "some_path"
